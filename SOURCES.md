@@ -50,7 +50,49 @@ not applicable or unknown, write "N/A" or "unknown" so it's clear it was conside
 
 ## Sources
 
-<!-- Add your sources below this line -->
+### IGDB — Internet Game Database (API)
+- **Publisher:** IGDB, owned by Twitch (Amazon). A large, actively-maintained video-game database.
+- **URL:** https://api.igdb.com/v4/games (docs: https://api-docs.igdb.com/). Auth via Twitch OAuth: https://id.twitch.tv/oauth2/token
+- **Format:** v4 REST API (POST with an Apicalypse query body; offset-paged). Queried, not scraped.
+- **License:** Free for **non-commercial** use under the Twitch Developer Services
+  Agreement; attribution to IGDB. Fun-tier pop-culture project — a community/industry
+  database is appropriate and cited plainly here.
+- **Fields used:** `id`, `name`, `slug`, `first_release_date` (unix → release_year),
+  `aggregated_rating` (external CRITIC aggregate, 0–100), `aggregated_rating_count`,
+  `rating` (IGDB USER rating, 0–100), `rating_count`, `total_rating`,
+  `total_rating_count`, `genres`, `platforms`.
+- **Coverage:** IGDB catalogs hundreds of thousands of titles across all platforms
+  and eras and syncs critic aggregates for **current** releases far better than
+  Metacritic-via-RAWG (the reason this project switched sources). We keep games with a
+  critic aggregate backed by **≥ 3 critic scores** (`aggregated_rating_count ≥ 3`) so
+  a single stray review doesn't create a noisy "aggregate." Threshold set in `01-ingest`.
+- **How the source collects the data:** IGDB aggregates metadata from the industry and
+  community. `aggregated_rating` is IGDB's **own** average of external professional
+  critic scores it has collected (0–100); `rating` is IGDB's **own** community/user
+  rating (0–100). These are two separate measures on the same 0–100 scale — a critic
+  aggregate and a user aggregate — and are NOT blended in this project (`total_rating`
+  is IGDB's blend and is kept only for reference).
+- **How the source defines the data:** `aggregated_rating` = mean of external critic
+  outlet scores IGDB has recorded for the game, normalized to 0–100, with
+  `aggregated_rating_count` outlets behind it. `rating` = mean of IGDB users' own
+  ratings, 0–100, with `rating_count` users behind it. Distinct from Metacritic (a
+  different aggregator with a different, weighted method) — the numbers are IGDB's, not
+  Metacritic's, and should be described as "IGDB critic rating," not "Metacritic."
+- **Methodology changes / series breaks:** IGDB's aggregate is a **simple mean** of the
+  outlets it happens to have, so coverage/among-outlet composition varies by title and
+  era; a low `aggregated_rating_count` aggregate is less stable (hence the ≥3 filter).
+  As with any critic aggregate, scores have drifted upward over time and the set of
+  covered outlets changes — treat cross-era comparisons as directional and bin by
+  period. Very recent releases may still be accruing critic scores at pull time.
+- **Known controversies / debates:** Aggregation choices (which outlets, unweighted
+  mean vs weighted) are debated across all aggregators; user ratings are subject to
+  review-bombing. This project reports critic and user aggregates **separately** and
+  never blends them, and flags the ≥3-outlet floor. Not load-bearing for a
+  distribution-shape story.
+- **Notes:** Requires free Twitch app credentials (`TWITCH_CLIENT_ID` +
+  `TWITCH_CLIENT_SECRET` in the gitignored `.env`), exchanged for a short-lived OAuth
+  token at ingest time. Raw JSON pages cached to `data/raw/igdb/`.
+- **Retrieved:** _pending — filled in 01-ingest when the pull runs_
 
 ---
 

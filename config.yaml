@@ -15,17 +15,25 @@ settings:
   duckdb_file: data/project.duckdb   # single file DB for the project
 
 sources:
-  # Define each data source here before ingesting.
-  # url:        full URL to fetch
-  # type:       html_table | html_scrape | csv | json
-  # table_index: (html_table only) zero-based index of the target <table>
-  # js_render:  true if the page requires Playwright (JS-rendered)
-  # Example:
-  # fatalities:
-  #   url: https://example.gov/data/fatalities
-  #   type: html_table
-  #   table_index: 0
-  #   js_render: false
+  # IGDB (Internet Game Database) API — owned by Twitch/Amazon, free for
+  # non-commercial use, queried via its v4 API (NOT scraped). Each game can carry:
+  #   - aggregated_rating       : external CRITIC score aggregate (0-100 double)
+  #   - aggregated_rating_count : number of critic scores behind it
+  #   - rating                  : IGDB USER/community rating (0-100 double)
+  #   - rating_count            : number of user ratings
+  #   - first_release_date      : unix timestamp (we derive release_year)
+  # Auth: a short-lived OAuth token minted from a Twitch app (TWITCH_CLIENT_ID +
+  # TWITCH_CLIENT_SECRET in .env). Chosen over RAWG/Metacritic because IGDB's
+  # critic coverage keeps up with recent releases (Metacritic aggregation lags).
+  igdb_games:
+    base_url: https://api.igdb.com/v4/games
+    token_url: https://id.twitch.tv/oauth2/token
+    type: igdb_api
+    page_size: 500            # IGDB max limit per request
+    rate_limit_seconds: 0.30  # IGDB allows ~4 req/s; 0.3s is polite and safe
+    # We keep games that HAVE a critic aggregate with enough reviews to be
+    # meaningful. Threshold set in 01-ingest via the `where` clause:
+    min_aggregated_rating_count: 3   # require >= 3 critic scores behind the aggregate
 
 export:
   formats:

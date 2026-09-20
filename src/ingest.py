@@ -309,3 +309,154 @@ def ingest_source(
         return parse_html_scrape(html, row_selector, field_map)
 
     raise ValueError(f"Unknown source type '{source_type}'. Use: html_table, html_scrape, csv, json.")
+
+
+# ---------------------------------------------------------------------------
+# IGDB API ingest (generic, config-driven, secrets passed in — never hardcoded)
+# ---------------------------------------------------------------------------
+
+def igdb_access_token(client_id: str, client_secret: str, cfg: dict) -> str:
+    """Exchange Twitch app credentials for a short-lived IGDB OAuth token.
+
+    IGDB auth runs through Twitch's client-credentials flow. The returned bearer
+    token is used in the ``Authorization`` header on every IGDB request. Secrets
+    are passed in by the caller (read from the gitignored ``.env``), never stored
+    or logged here.
+    """
+    token_url = cfg["sources"]["igdb_games"].get(
+        "token_url", "https://id.twitch.tv/oauth2/token"
+    )
+    resp = requests.post(token_url, params={
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "grant_type": "client_credentials",
+    }, timeout=30)
+    resp.raise_for_status()
+    return resp.json()["access_token"]
+
+
+def _igdb_id_name_map(
+    endpoint: str, ids: list[int], client_id: str, token: str, cfg: dict,
+) -> dict[int, str]:
+    """Fetch id→name for a reference endpoint (e.g. genres, platforms).
+
+    IGDB stores genres/platforms as ID arrays on each game; this resolves them to
+    names in bulk so the games table can carry readable, comma-joined strings.
+    """
+    if not ids:
+        return {}
+    base = cfg["sources"]["igdb_games"]["base_url"].rsplit("/", 1)[0]
+    headers = {"Client-ID": client_id, "Authorization": f"Bearer {token}",
+               "Accept": "application/json"}
+    out: dict[int, str] = {}
+    uniq = sorted(set(int(i) for i in ids))
+    for start in range(0, len(uniq), 500):
+        chunk = uniq[start:start + 500]
+        id_list = ",".join(str(i) for i in chunk)
+        body = f"fields id,name; where id = ({id_list}); limit 500;"
+        resp = requests.post(f"{base}/{endpoint}", data=body, headers=headers, timeout=30)
+        resp.raise_for_status()
+        for row in resp.json():
+            out[row["id"]] = row.get("name", "")
+        time.sleep(cfg["sources"]["igdb_games"].get("rate_limit_seconds", 0.3))
+    return out
+
+
+def fetch_igdb_games(
+    client_id: str,
+    token: str,
+    cfg: dict,
+    *,
+    min_aggregated_rating_count: int | None = None,
+    max_pages: int | None = None,
+    save_raw: bool = True,
+    verbose: bool = True,
+) -> pd.DataFrame:
+    """Page through the IGDB /games endpoint and return one row per game.
+
+    Generic and config-driven: endpoint, page size (IGDB max 500), rate limit and
+    the critic-count floor all come from ``cfg['sources']['igdb_games']``. The
+    OAuth token + client id are passed in (from .env via igdb_access_token), never
+    hardcoded or logged.
+
+    IGDB uses POST with an Apicalypse query body and offset paging. We request all
+    games that have a critic aggregate backed by at least
+    ``min_aggregated_rating_count`` outlets, then resolve genre/platform IDs to
+    names in bulk. ``first_release_date`` is a unix timestamp → we derive
+    ``release_year``.
+
+    Returns a DataFrame with columns: id, slug, name, release_year,
+    aggregated_rating (critic 0-100), aggregated_rating_count, rating (user 0-100),
+    rating_count, total_rating, total_rating_count, genre_ids, platform_ids.
+    (Genre/platform NAMES are joined on in the notebook via _igdb_id_name_map.)
+    """
+    src = cfg["sources"]["igdb_games"]
+    base_url: str = src["base_url"]
+    page_size: int = min(int(src.get("page_size", 500)), 500)
+    rate_limit: float = float(src.get("rate_limit_seconds", 0.3))
+    if min_aggregated_rating_count is None:
+        min_aggregated_rating_count = int(src.get("min_aggregated_rating_count", 3))
+
+    headers = {"Client-ID": client_id, "Authorization": f"Bearer {token}",
+               "Accept": "application/json"}
+    fields = ("id,slug,name,first_release_date,aggregated_rating,"
+              "aggregated_rating_count,rating,rating_count,total_rating,"
+              "total_rating_count,genres,platforms")
+    where = f"aggregated_rating != null & aggregated_rating_count >= {min_aggregated_rating_count}"
+
+    raw_dir = Path(cfg["paths"]["data_raw"]) / "igdb"
+    if save_raw:
+        raw_dir.mkdir(parents=True, exist_ok=True)
+
+    records: list[dict[str, Any]] = []
+    offset = 0
+    page = 0
+    while True:
+        page += 1
+        if max_pages is not None and page > max_pages:
+            break
+        body = (f"fields {fields}; where {where}; "
+                f"sort aggregated_rating desc; limit {page_size}; offset {offset};")
+        time.sleep(rate_limit)
+        resp = requests.post(base_url, data=body, headers=headers, timeout=30)
+        resp.raise_for_status()
+        batch = resp.json()
+        if not batch:
+            break
+
+        if save_raw:
+            (raw_dir / f"page_{page:04d}.json").write_text(
+                json.dumps(batch), encoding="utf-8"
+            )
+
+        for g in batch:
+            ts = g.get("first_release_date")
+            year = None
+            if ts:
+                from datetime import datetime, timezone
+                year = datetime.fromtimestamp(ts, tz=timezone.utc).year
+            records.append({
+                "id": g.get("id"),
+                "slug": g.get("slug"),
+                "name": g.get("name"),
+                "release_year": year,
+                "aggregated_rating": g.get("aggregated_rating"),        # critic 0-100
+                "aggregated_rating_count": g.get("aggregated_rating_count"),
+                "rating": g.get("rating"),                              # user 0-100
+                "rating_count": g.get("rating_count"),
+                "total_rating": g.get("total_rating"),
+                "total_rating_count": g.get("total_rating_count"),
+                "genre_ids": g.get("genres") or [],
+                "platform_ids": g.get("platforms") or [],
+            })
+
+        if verbose and page % 5 == 0:
+            print(f"  page {page} — {len(records):,} games so far")
+
+        offset += page_size
+        if len(batch) < page_size:
+            break
+
+    if verbose:
+        print(f"Done: {len(records):,} games across {page} page(s)")
+    return pd.DataFrame.from_records(records)
