@@ -31,7 +31,7 @@ Every game's IGDB **critic** rating, binned into 5-point bands. The pile sits in
 the 70s–80s, the average (mean 73.5 / median 75.3) lands right in it, and the 90+
 club (highlighted) is a thin sliver on the right.
 
-[![Distribution of IGDB critic review scores](docs/01_critic_score_distribution.png?v=2)](docs/01_critic_score_distribution.png?v=2)
+[![Distribution of IGDB critic review scores](/video-game-scores/docs/01_critic_score_distribution.png)](/video-game-scores/docs/01_critic_score_distribution.png)
 
 ## 2. User review scores
 
@@ -39,7 +39,7 @@ The same treatment for IGDB **user/community** ratings (the games that have one)
 Same shape, shifted very slightly lower and tighter (mean 72.4 / median 73.4) —
 players hand out top marks even more sparingly than critics.
 
-[![Distribution of IGDB user review scores](docs/02_user_score_distribution.png?v=2)](docs/02_user_score_distribution.png?v=2)
+[![Distribution of IGDB user review scores](/video-game-scores/docs/02_user_score_distribution.png)](/video-game-scores/docs/02_user_score_distribution.png)
 
 ## 3. Critics vs. users, over time
 
@@ -47,7 +47,7 @@ The **average** critic rating and average user rating for each release year
 (2001–2021, years with at least 10 scored games). The lines cross around 2010–11:
 users led in the 2000s, critics have led since.
 
-[![Average IGDB critic vs user rating by release year](docs/03_avg_rating_by_year.png?v=2)](docs/03_avg_rating_by_year.png?v=2)
+[![Average IGDB critic vs user rating by release year](/video-game-scores/docs/03_avg_rating_by_year.png)](/video-game-scores/docs/03_avg_rating_by_year.png)
 
 ## 4. Where players and critics disagree
 
@@ -60,7 +60,7 @@ Rise of Lyric*, *Dungeon Keeper*), a few where the two camps split hard (*Unknow
 9: Awakening*, *Overlord: Fellowship of Evil*), and the occasional cult favorite
 players rated far above critics (*Ghost Trick: Phantom Detective*).
 
-[![IGDB user rating vs critic rating, outliers labelled](docs/04_user_vs_critic_scatter.png?v=2)](docs/04_user_vs_critic_scatter.png?v=2)
+[![IGDB user rating vs critic rating, outliers labelled](/video-game-scores/docs/04_user_vs_critic_scatter.png)](/video-game-scores/docs/04_user_vs_critic_scatter.png)
 
 ---
 
