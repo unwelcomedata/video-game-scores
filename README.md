@@ -1,172 +1,110 @@
-# video-game-scores
+**[@unwelcomedata](https://github.com/unwelcomedata)** · data from public sources
+Follow for new charts: [X](https://x.com/unwelcomedata) · [Bluesky](https://bsky.app/profile/unwelcomedata.bsky.social)
+
+# The shape of video game review scores
+
+What do game review scores actually look like when you pile them all up? Using
+**6,005 games** from IGDB (each with at least three critic scores), this is the
+distribution of critic ratings, the same for user ratings, how the two have moved
+over 20 years, and where players and critics disagree the most.
+
+**The findings:**
+- **Almost everything scores in the 70s and 80s.** The 70s alone are the fat
+  middle — about **35%** of all games. A left-skewed pile, not a bell curve
+  centered at 50.
+- **A 90+ score is rare.** Only **~4%** of games clear 90 on the critic scale;
+  the "elite" tail is thin. So is the bad tail — genuinely low scores (under 50)
+  are just as uncommon.
+- **Users and critics broadly agree, but not perfectly** (correlation r = 0.60).
+  Where they diverge, it's usually critics scoring a game well above the players.
+- **The two audiences swapped places over time.** In the early 2000s users rated
+  games *higher* than critics; since roughly 2011 critics have drifted up while
+  users held flat — so critics now sit above users.
+
+---
+
+_Click any chart to open it at full resolution._
+
+## 1. Critic review scores
+
+Every game's IGDB **critic** rating, binned into 5-point bands. The pile sits in
+the 70s–80s, the average (mean 73.5 / median 75.3) lands right in it, and the 90+
+club (highlighted) is a thin sliver on the right.
+
+[![Distribution of IGDB critic review scores](docs/01_critic_score_distribution.png)](docs/01_critic_score_distribution.png)
+
+## 2. User review scores
+
+The same treatment for IGDB **user/community** ratings (the games that have one).
+Same shape, shifted very slightly lower and tighter (mean 72.4 / median 73.4) —
+players hand out top marks even more sparingly than critics.
+
+[![Distribution of IGDB user review scores](docs/02_user_score_distribution.png)](docs/02_user_score_distribution.png)
+
+## 3. Critics vs. users, over time
+
+The **average** critic rating and average user rating for each release year
+(2001–2021, years with at least 10 scored games). The lines cross around 2010–11:
+users led in the 2000s, critics have led since.
+
+[![Average IGDB critic vs user rating by release year](docs/03_avg_rating_by_year.png)](docs/03_avg_rating_by_year.png)
+
+## 4. Where players and critics disagree
+
+Every game with both a critic and a user rating (5,311 of them), plotted against
+each other with a dashed **"users = critics"** line. Most of the cloud hugs that
+line. The dozen most **isolated** games — the ones standing alone in open space —
+are highlighted and named; they're mostly titles critics scored notably higher
+than players did (*Steel Division: Normandy 44*, *Unknown 9: Awakening*, *Sonic
+Boom: Rise of Lyric*, and friends).
+
+[![IGDB user rating vs critic rating, outliers labelled](docs/04_user_vs_critic_scatter.png)](docs/04_user_vs_critic_scatter.png)
+
+---
+
+## How it's measured
+
+- **Metric:** IGDB's own aggregate scores on a **0–100** scale. `critic_rating`
+  is IGDB's mean of the external professional-critic scores it has collected;
+  `user_rating` is IGDB's community rating. These are two **separate** measures —
+  never blended — and they are **IGDB's numbers, not Metacritic's** (a different
+  aggregator with a different method).
+- **Who's included:** games with a critic aggregate backed by **≥ 3 critic
+  scores**, so a single stray review can't create a noisy "aggregate." That's the
+  6,005-game universe; the user charts cover the 5,312 of those that also carry a
+  community rating, and the scatter the 5,311 with both (one game with a critic
+  score of exactly 0 — an IGDB data gap — is dropped).
+- **"Most isolated" outliers:** on the scatter, the labelled games are the 12 with
+  the most empty space around them (measured by distance to their nearest
+  neighbours), i.e. the ones the eye reads as standing apart — not simply the
+  biggest raw gaps.
+- **Caveat:** IGDB's critic aggregate is a simple mean of whatever outlets it has,
+  so coverage varies by title and era and scores drift upward over time. Treat the
+  year-over-year comparison as directional, and very recent releases (still
+  accruing scores) are excluded from the yearly lines.
+
+## The data
+
+The published dataset is in [`export/`](export/) with a codebook describing every
+column:
+
+- `video_game_scores_v1.csv` — one row per game: name, critic rating + count, user
+  rating + count, release year, decade, genres, platforms.
+
+## Sources & license
+
+Scores are from **[IGDB — the Internet Game Database](https://www.igdb.com/)**
+(owned by Twitch/Amazon), queried through its public API. Free for non-commercial
+use under the Twitch Developer Services Agreement, with attribution to IGDB. Full
+attribution, definitions, and caveats in [SOURCES.md](SOURCES.md). These are
+publicly available review aggregates, transformed into new distributions and
+attributed here — not a redistribution of IGDB's database.
+
+---
 
 > **AI-Assisted Development**
-> This project was built with the assistance of [Kiro](https://kiro.dev),
-> an AI-powered development environment. All data sourcing decisions,
-> methodology choices, and published findings are the responsibility of the
-> author. AI was used for code generation, data pipeline construction, and
-> research assistance — not for analysis conclusions or editorial judgment.
-
----
-
-## Data Sources
-
-All data sources are documented in [SOURCES.md](SOURCES.md) with full
-attribution, URLs, licenses, and retrieval notes.
-
-Source provenance is also recorded inside the project database:
-
-```sql
--- Open data/project.duckdb and run:
-SELECT * FROM _sources;
-```
-
----
-
-## Project Structure
-
-```
-video-game-scores/
-├── config.yaml              ← sources, paths, export settings — edit this first
-├── SOURCES.md               ← full data source attribution
-├── requirements.txt
-├── data/
-│   ├── raw/                 ← original downloaded files, never modified
-│   ├── interim/             ← cleaned Parquet files (1:1 match DuckDB table names)
-│   ├── processed/           ← analysis-ready Parquet files
-│   └── project.duckdb       ← single-file database for the project
-├── export/                  ← packaged datasets (CSV, Excel, Parquet + codebook)
-├── outputs/                 ← exploratory chart PNGs (from 04-viz)
-│   └── social/             ← publication-ready charts for posting (from 04b-viz-social)
-├── scripts/
-│   ├── README.md            ← pipeline run order and conventions
-│   ├── ingest_all.py        ← reproducible ingestion
-│   ├── clean_all.py         ← standardize raw tables
-│   └── prepare_export.py    ← build final export
-├── notebooks/
-│   ├── 00-explore.ipynb     ← DuckDB query sandbox
-│   ├── 01-ingest.ipynb      ← fetch sources → data/raw/ → DuckDB
-│   ├── 02-clean.ipynb       ← clean + quality checks → data/interim/
-│   ├── 03-prepare.ipynb     ← feature engineering + export packaging
-│   ├── 04-viz.ipynb         ← exploratory charts → outputs/
-│   ├── 04b-viz-social.ipynb ← publication social charts → outputs/social/
-│   └── 05-analysis.ipynb    ← statistical analysis + findings
-└── src/
-    ├── ingest.py            ← fetch helpers (caching, rate limiting)
-    ├── clean_quality.py     ← DuckDB cleaning + quality reports + _sources
-    ├── prepare.py           ← PII stripping, codebook, packaging
-    ├── viz.py               ← matplotlib chart builders (exploratory)
-    └── viz_social.py        ← Altair + vl-convert social export
-```
-
----
-
-## Workflow
-
-### 1. Configure `config.yaml`
-
-Add each data source under the `sources:` block before ingesting:
-
-```yaml
-sources:
-  my_source:
-    url: https://example.gov/data/table
-    type: html_table      # html_table | html_scrape | csv | json
-    table_index: 0
-    js_render: false
-```
-
-### 2. Document sources in `SOURCES.md`
-
-Before ingesting any data, add an entry to `SOURCES.md` for each source:
-- Full URL
-- Publisher / agency
-- License
-- Fields used
-- Any caveats
-
-### 3. Ingest (`01-ingest.ipynb`)
-
-```python
-from src.ingest import load_config, ingest_source
-cfg = load_config("config.yaml")
-df = ingest_source("my_source", cfg)
-```
-
-Raw files land in `data/raw/` untouched. All tables load into DuckDB at
-`data/project.duckdb` with source metadata written to `_sources`.
-
-### 4. Clean (`02-clean.ipynb`)
-
-```python
-from src.clean_quality import get_connection, clean_table, quality_report, save_interim
-con = get_connection(cfg)
-df_clean = clean_table(df, "my_source_raw", con, cast_map={"year": "INTEGER"})
-quality_report(df_clean, "my_source_clean", con)
-save_interim(df_clean, cfg, "my_source_clean.parquet")
-```
-
-### 5. Prepare & export (`03-prepare.ipynb`)
-
-```python
-from src.prepare import package_dataset
-package_dataset(df, cfg, name="my_dataset_v1",
-                codebook={"col": "description"},
-                notes="Source: Agency. License: Public domain.")
-```
-
-### 6. Visualize (`04-viz.ipynb` + `04b-viz-social.ipynb`)
-
-**04-viz** is for exploratory charting (matplotlib). Output goes to `outputs/`.
-
-```python
-from src.viz import ranked_bar_chart, save_chart
-fig = ranked_bar_chart(df, x="state", y="rate", title="Top 10 States", top_n=10,
-                       preset="instagram_portrait")
-save_chart(fig, cfg, "top10_states", preset="instagram_portrait",
-           add_watermark="@unwelcomedata")
-```
-
-**04b-viz-social** is for publication-ready charts (Altair + vl-convert).
-Output goes to `outputs/social/`. Only curated, validated charts go here.
-
-```python
-from src.viz_social import save_social
-save_social(chart, cfg, 'my_social_chart', preset='twitter_landscape')
-```
-
-### 7. Analyze (`05-analysis.ipynb`)
-
-Statistical analysis, regression, group comparisons. Always read from the
-**export** parquet (not raw DuckDB tables) to ensure consistency with
-published data.
-
----
-
-## Publishing (when the project is ready to go public)
-
-Full procedure is in `.kiro/steering/public-release.md`. The essentials:
-
-1. **Validate first (required gate).** Ship a `scripts/validate_charts.py` that
-   re-checks the chart data against DuckDB (export drift, headline facts,
-   invariants) and run it — it must exit 0 before anything goes public. See
-   `scripts/README.md`.
-2. **Curate a `release` branch** for the public tree (fun tier drops
-   notebooks/src/scripts/config; serious tier keeps src + a reproducible
-   entrypoint). Force-add the CSV + codebook exports and the `docs/` charts.
-3. **`_config.yml`** (root, on both `main` and `release`): set `title:` to the
-   **project name** so the Cayman banner names the project — NOT the generic
-   `@unwelcomedata` (that leaves the page looking untitled). Put the brand in
-   `description:`. Theme is always `jekyll-theme-cayman` (shared identity).
-4. **README brand line** links `@unwelcomedata` to the **GitHub profile**
-   (`https://github.com/unwelcomedata`), never a self-link to the project's own
-   Pages URL.
-5. After publishing, **`git checkout main`** — leaving the repo on `release`
-   strips the notebooks from the working copy and looks like they vanished
-   (they're safe on `main`).
-
-## Anonymity
-
-Commits are authored as `unwelcomedata` to keep the author's real identity
-off the public commit history. Data files, exports, outputs, and `.env`
-secrets are excluded from version control via `.gitignore`.
+> This project was built with the assistance of [Kiro](https://kiro.dev), an
+> AI-powered development environment. All data-sourcing decisions, methodology
+> choices, and published findings are the responsibility of the author. AI was
+> used for code generation, data-pipeline construction, and research assistance —
+> not for analysis conclusions or editorial judgment.

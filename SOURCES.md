@@ -92,7 +92,7 @@ not applicable or unknown, write "N/A" or "unknown" so it's clear it was conside
 - **Notes:** Requires free Twitch app credentials (`TWITCH_CLIENT_ID` +
   `TWITCH_CLIENT_SECRET` in the gitignored `.env`), exchanged for a short-lived OAuth
   token at ingest time. Raw JSON pages cached to `data/raw/igdb/`.
-- **Retrieved:** _pending — filled in 01-ingest when the pull runs_
+- **Retrieved:** 2026-09-20
 
 ---
 
