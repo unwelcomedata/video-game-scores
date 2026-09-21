@@ -89,16 +89,16 @@ not applicable or unknown, write "N/A" or "unknown" so it's clear it was conside
   review-bombing. This project reports critic and user aggregates **separately** and
   never blends them, and flags the ≥3-outlet floor. Not load-bearing for a
   distribution-shape story.
-- **Notes:** Requires free Twitch app credentials (`TWITCH_CLIENT_ID` +
-  `TWITCH_CLIENT_SECRET` in the gitignored `.env`), exchanged for a short-lived OAuth
-  token at ingest time. Raw JSON pages cached to `data/raw/igdb/`.
+- **Notes:** Access requires free Twitch app credentials, exchanged for a
+  short-lived OAuth token at query time. Responses were pulled via the API, not
+  scraped.
 - **Retrieved:** 2026-09-20
 
 ---
 
 ## Notes on Data Quality
 
-- All source files are saved verbatim to `data/raw/` and never modified.
+- Source responses are preserved verbatim and never modified before cleaning.
 - Discrepancies between sources should be noted here and resolved explicitly.
 - **Series breaks:** whenever a source changed its definition or method mid-series,
   document the break date under that source and treat pre/post as separate series —
@@ -106,14 +106,3 @@ not applicable or unknown, write "N/A" or "unknown" so it's clear it was conside
 - **Definitions drive comparisons:** before comparing two numbers (across years,
   places, or sources), confirm they are defined the same way. If not, say so in the
   chart, the codebook, and any social copy.
-
----
-
-## Source Provenance in DuckDB
-
-Every table in `data/project.duckdb` has a corresponding entry in the
-`_sources` metadata table:
-
-```sql
-SELECT * FROM _sources;
-```
