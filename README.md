@@ -53,10 +53,12 @@ users led in the 2000s, critics have led since.
 
 Every game with both a critic and a user rating (5,311 of them), plotted against
 each other with a dashed **"users = critics"** line. Most of the cloud hugs that
-line. The dozen most **isolated** games — the ones standing alone in open space —
-are highlighted and named; they're mostly titles critics scored notably higher
-than players did (*Steel Division: Normandy 44*, *Unknown 9: Awakening*, *Sonic
-Boom: Rise of Lyric*, and friends).
+line. The dozen games standing most alone — the ones with the most empty space
+around them — are highlighted and named. They're the oddballs on the edges of the
+plot: mostly low-scoring flops both sides panned (*The Quiet Man*, *Sonic Boom:
+Rise of Lyric*, *Dungeon Keeper*), a few where the two camps split hard (*Unknown
+9: Awakening*, *Overlord: Fellowship of Evil*), and the occasional cult favorite
+players rated far above critics (*Ghost Trick: Phantom Detective*).
 
 [![IGDB user rating vs critic rating, outliers labelled](docs/04_user_vs_critic_scatter.png)](docs/04_user_vs_critic_scatter.png)
 
