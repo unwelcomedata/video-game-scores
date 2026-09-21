@@ -1,26 +1,19 @@
+# Dependencies actually used by this project (fun-tier pop-culture dataset).
+# Data pulled from the IGDB API (not scraped), cleaned in DuckDB, charts rendered
+# with the shared Pillow chart toolkit.
+
 # --- core data ---
 pandas==3.0.5
 duckdb==1.5.5
 pyarrow==25.0.0
+numpy==2.2.6
 
-# --- web ingestion ---
+# --- IGDB API ingestion ---
 requests==2.32.3
-beautifulsoup4==4.12.3
-lxml==5.4.0
-playwright==1.62.0          # for JS-rendered pages; run: playwright install chromium
+python-dotenv==1.1.1      # Twitch/IGDB credentials from a gitignored .env
 
-# --- notebooks ---
-jupyterlab==4.4.3
-ipykernel==6.29.5
-
-# --- viz / social export ---
-matplotlib==3.10.3
-Pillow==12.3.0               # chart rendering (Pillow-based pipeline)
-geopandas==1.0.1             # choropleth maps (optional, only if mapping)
-
-# --- data packaging ---
-openpyxl==3.1.5              # Excel export for sellable datasets
-
-# --- config & utilities ---
+# --- config ---
 pyyaml==6.0.2
-python-dotenv==1.1.1
+
+# --- chart rendering ---
+Pillow==12.3.0            # shared Pillow-based chart toolkit
