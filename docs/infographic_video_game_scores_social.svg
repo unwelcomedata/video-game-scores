@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  @unwelcomedata — PROJECT INFOGRAPHIC (landscape social render)
+  Project: video-game-scores
+  1600x900 feed render. Same brand FRAME formatting (header/footer/dividers),
+  re-laid into two columns. Numbers identical to the tall poster.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Helvetica, Arial, sans-serif">
+
+  <!-- ===== CANVAS ===== -->
+  <rect width="1600" height="900" fill="#FBF8F0"/>
+
+  <!-- ============================================================= -->
+  <!-- HEADER BAND (navy)                                            -->
+  <!-- ============================================================= -->
+  <rect x="0" y="0" width="1600" height="190" fill="#003049"/>
+  <text x="80" y="90" fill="#FFFFFF" font-size="56" font-weight="bold">The Shape of Game Review Scores</text>
+  <text x="80" y="138" fill="#94D2BD" font-size="32" font-weight="bold">Most games crowd the 70s &#8212; and few ever break 90</text>
+  <text x="80" y="172" fill="#E9D8A6" font-size="22">6,005 games rated by three or more critic outlets, on IGDB&#8217;s 0&#8211;100 scale.</text>
+
+  <!-- vertical divider between the two columns -->
+  <line x1="800" y1="230" x2="800" y2="790" stroke="#E9D8A6" stroke-width="3"/>
+
+  <!-- ============================================================= -->
+  <!-- LEFT COLUMN — THE FAT MIDDLE                                  -->
+  <!-- ============================================================= -->
+  <text x="80" y="268" fill="#003049" font-size="30" font-weight="bold">The fat middle</text>
+  <text x="80" y="298" fill="#6B7280" font-size="20">How 6,005 critic scores spread across 0&#8211;100.</text>
+
+  <text x="80" y="372" fill="#005F73" font-size="60" font-weight="bold">75.3</text>
+  <text x="80" y="402" fill="#6B7280" font-size="19">median critic score</text>
+  <text x="760" y="358" fill="#005F73" font-size="58" font-weight="bold" text-anchor="end">35%</text>
+  <text x="760" y="388" fill="#6B7280" font-size="18" text-anchor="end">score in the 70s</text>
+
+  <!-- mini histogram: baseline y=620; tallest 70s(2128)->190px; bars x90..760, 10 bands -->
+  <!-- scale: 2128 -> 190  => px = n * 0.08929 -->
+  <!-- bar width 55, pitch 67 starting x=95 -->
+  <rect x="95"  y="619.9" width="55" height="0.1"  fill="#94D2BD"/><!--0s 1-->
+  <rect x="162" y="619.7" width="55" height="0.3"  fill="#94D2BD"/><!--10s 2-->
+  <rect x="229" y="618.6" width="55" height="1.4"  fill="#94D2BD"/><!--20s 16-->
+  <rect x="296" y="614.1" width="55" height="5.9"  fill="#94D2BD"/><!--30s 66-->
+  <rect x="363" y="604.3" width="55" height="15.7" fill="#0A9396"/><!--40s 176-->
+  <rect x="430" y="578.7" width="55" height="41.3" fill="#0A9396"/><!--50s 462-->
+  <rect x="497" y="515.7" width="55" height="104.3" fill="#0A9396"/><!--60s 1168-->
+  <rect x="564" y="430.0" width="55" height="190.0" fill="#005F73"/><!--70s 2128-->
+  <rect x="631" y="464.6" width="55" height="155.4" fill="#0A9396"/><!--80s 1740-->
+  <rect x="698" y="598.1" width="55" height="21.9" fill="#E9D8A6"/><!--90s 245-->
+  <line x1="95" y1="620" x2="760" y2="620" stroke="#6B7280" stroke-width="2"/>
+
+  <text x="591" y="420" fill="#003049" font-size="18" font-weight="bold" text-anchor="middle">2,128</text>
+  <text x="591" y="642" fill="#003049" font-size="16" text-anchor="middle">70s</text>
+  <text x="725" y="588" fill="#CBB477" font-size="16" font-weight="bold" text-anchor="middle">245</text>
+  <text x="725" y="642" fill="#6B7280" font-size="16" text-anchor="middle">90s</text>
+  <text x="122" y="642" fill="#6B7280" font-size="16" text-anchor="middle">0s</text>
+
+  <text x="80" y="700" fill="#CBB477" font-size="24" font-weight="bold">Only 4.1% of games ever break 90.</text>
+  <text x="80" y="730" fill="#6B7280" font-size="19">245 of 6,005 &#8212; the gold tier is tiny; the crowd lives in the 60s&#8211;80s.</text>
+
+  <!-- ============================================================= -->
+  <!-- RIGHT COLUMN — CROSSOVER + AGREEMENT                          -->
+  <!-- ============================================================= -->
+  <text x="860" y="268" fill="#003049" font-size="30" font-weight="bold">Critics and players traded places</text>
+  <text x="860" y="298" fill="#6B7280" font-size="20">Average critic vs user score by year, 2001&#8211;2021.</text>
+
+  <!-- line plot: x 900..1520 (2001..2021), y 340..520 (score 66..80) -->
+  <!-- year->x: x = 900 + (year-2001)*31 ; score->y: y = 520 - (score-66)*12.857 -->
+  <line x1="900" y1="468" x2="1520" y2="468" stroke="#E5E0D2" stroke-width="2"/><!--70-->
+  <text x="892" y="473" fill="#9AA0A6" font-size="15" text-anchor="end">70</text>
+  <line x1="900" y1="404" x2="1520" y2="404" stroke="#E5E0D2" stroke-width="2"/><!--75-->
+  <text x="892" y="409" fill="#9AA0A6" font-size="15" text-anchor="end">75</text>
+
+  <!-- USER (caramel) -->
+  <polyline fill="none" stroke="#CA6702" stroke-width="4" stroke-linejoin="round" points="900,369 931,422 962,468 993,456 1024,443 1055,491 1086,499 1117,476 1148,463 1179,448 1210,463 1241,471 1272,476 1303,481 1334,461 1365,465 1396,450 1427,459 1458,461 1489,425 1520,448"/>
+  <!-- CRITIC (teal) -->
+  <polyline fill="none" stroke="#0A9396" stroke-width="4" stroke-linejoin="round" points="900,413 931,413 962,450 993,391 1024,420 1055,487 1086,492 1117,468 1148,453 1179,427 1210,406 1241,420 1272,432 1303,430 1334,461 1365,443 1396,427 1427,414 1458,390 1489,377 1520,365"/>
+
+  <circle cx="1210" cy="434" r="5" fill="#9B2226"/>
+  <text x="1210" y="556" fill="#9B2226" font-size="18" font-weight="bold" text-anchor="middle">cross around 2010&#8211;11</text>
+  <text x="900" y="540" fill="#6B7280" font-size="16" text-anchor="start">2001</text>
+  <text x="1520" y="540" fill="#6B7280" font-size="16" text-anchor="end">2021</text>
+
+  <rect x="860" y="572" width="26" height="7" fill="#0A9396"/>
+  <text x="894" y="585" fill="#003049" font-size="18">Critic avg</text>
+  <rect x="1010" y="572" width="26" height="7" fill="#CA6702"/>
+  <text x="1044" y="585" fill="#003049" font-size="18">User avg</text>
+
+  <!-- gold divider inside right column -->
+  <line x1="860" y1="614" x2="1520" y2="614" stroke="#E9D8A6" stroke-width="3"/>
+
+  <text x="860" y="662" fill="#003049" font-size="30" font-weight="bold">They mostly agree</text>
+  <text x="860" y="740" fill="#005F73" font-size="80" font-weight="bold">0.60</text>
+  <text x="1130" y="712" fill="#6B7280" font-size="20">critic&#8211;user correlation</text>
+  <text x="1130" y="740" fill="#6B7280" font-size="20">across 5,311 games</text>
+  <text x="860" y="780" fill="#6B7280" font-size="19">When they split, it&#8217;s lopsided &#8212; critics usually score above players.</text>
+
+  <!-- ============================================================= -->
+  <!-- FOOTER BAND                                                   -->
+  <!-- ============================================================= -->
+  <rect x="0" y="810" width="1600" height="90" fill="#003049"/>
+  <text x="80" y="852" fill="#FFFFFF" font-size="22" font-weight="bold">@unwelcomedata</text>
+  <text x="80" y="882" fill="#94D2BD" font-size="19">IGDB (igdb.com) &#183; critic/user ratings on a 0&#8211;100 scale; games with ratings from &#8805; 3 critic outlets.</text>
+</svg>
