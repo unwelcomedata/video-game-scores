@@ -69,10 +69,10 @@
   <line x1="900" y1="404" x2="1520" y2="404" stroke="#E5E0D2" stroke-width="2"/><!--75-->
   <text x="892" y="409" fill="#9AA0A6" font-size="15" text-anchor="end">75</text>
 
-  <!-- USER (caramel) -->
-  <polyline fill="none" stroke="#CA6702" stroke-width="4" stroke-linejoin="round" points="900,369 931,422 962,468 993,456 1024,443 1055,491 1086,499 1117,476 1148,463 1179,448 1210,463 1241,471 1272,476 1303,481 1334,461 1365,465 1396,450 1427,459 1458,461 1489,425 1520,448"/>
-  <!-- CRITIC (teal) -->
-  <polyline fill="none" stroke="#0A9396" stroke-width="4" stroke-linejoin="round" points="900,413 931,413 962,450 993,391 1024,420 1055,487 1086,492 1117,468 1148,453 1179,427 1210,406 1241,420 1272,432 1303,430 1334,461 1365,443 1396,427 1427,414 1458,390 1489,377 1520,365"/>
+  <!-- USER (caramel) — points computed from chart_avg_by_year -->
+  <polyline fill="none" stroke="#CA6702" stroke-width="4" stroke-linejoin="round" points="900,370 931,422 962,444 993,404 1024,417 1055,452 1086,472 1117,449 1148,436 1179,422 1210,436 1241,444 1272,449 1303,454 1334,448 1365,452 1396,436 1427,445 1458,447 1489,434 1520,422"/>
+  <!-- CRITIC (teal) — points computed from chart_avg_by_year -->
+  <polyline fill="none" stroke="#0A9396" stroke-width="4" stroke-linejoin="round" points="900,413 931,413 962,451 993,399 1024,427 1055,487 1086,492 1117,458 1148,445 1179,429 1210,412 1241,433 1272,447 1303,444 1334,431 1365,448 1396,429 1427,431 1458,411 1489,398 1520,385"/>
 
   <text x="900" y="540" fill="#6B7280" font-size="16" text-anchor="start">2001</text>
   <text x="1520" y="540" fill="#6B7280" font-size="16" text-anchor="end">2021</text>

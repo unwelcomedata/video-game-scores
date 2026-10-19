@@ -90,10 +90,10 @@
   <line x1="160" y1="1380" x2="1120" y2="1380" stroke="#E5E0D2" stroke-width="2"/>
   <text x="150" y="1386" fill="#9AA0A6" font-size="18" text-anchor="end">75</text>
 
-  <!-- USER line (caramel) — 2001..2021 avg_user -->
-  <polyline fill="none" stroke="#CA6702" stroke-width="5" stroke-linejoin="round" points="160,1326 208,1408 256,1478 304,1460 352,1440 400,1514 448,1526 496,1490 544,1470 592,1448 640,1470 688,1482 736,1490 784,1498 832,1468 880,1474 928,1450 976,1464 1024,1466 1072,1414 1120,1448"/>
-  <!-- CRITIC line (teal) — 2001..2021 avg_critic -->
-  <polyline fill="none" stroke="#0A9396" stroke-width="5" stroke-linejoin="round" points="160,1394 208,1394 256,1452 304,1372 352,1416 400,1508 448,1516 496,1476 544,1456 592,1422 640,1392 688,1416 736,1434 784,1432 832,1478 880,1448 928,1422 976,1402 1024,1370 1072,1350 1120,1330"/>
+  <!-- USER line (caramel) — 2001..2021 avg_user (points computed from chart_avg_by_year) -->
+  <polyline fill="none" stroke="#CA6702" stroke-width="5" stroke-linejoin="round" points="160,1326 208,1408 256,1442 304,1380 352,1400 400,1454 448,1486 496,1450 544,1430 592,1408 640,1430 688,1442 736,1450 784,1458 832,1448 880,1454 928,1430 976,1444 1024,1446 1072,1426 1120,1408"/>
+  <!-- CRITIC line (teal) — 2001..2021 avg_critic (points computed from chart_avg_by_year) -->
+  <polyline fill="none" stroke="#0A9396" stroke-width="5" stroke-linejoin="round" points="160,1394 208,1394 256,1452 304,1372 352,1416 400,1508 448,1516 496,1464 544,1444 592,1418 640,1392 688,1424 736,1446 784,1442 832,1422 880,1448 928,1418 976,1422 1024,1390 1072,1370 1120,1350"/>
 
   <!-- endpoint labels (placed clear of the lines: left above the plot, right below the rising teal end) -->
   <text x="180" y="1268" fill="#CA6702" font-size="20" font-weight="bold" text-anchor="start">Users rated higher early on</text>
