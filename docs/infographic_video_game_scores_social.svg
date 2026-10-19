@@ -59,8 +59,8 @@
   <!-- ============================================================= -->
   <!-- RIGHT COLUMN — CROSSOVER + AGREEMENT                          -->
   <!-- ============================================================= -->
-  <text x="860" y="268" fill="#003049" font-size="30" font-weight="bold">Critics and players traded places</text>
-  <text x="860" y="298" fill="#6B7280" font-size="20">Average critic vs user score by year, 2001&#8211;2021.</text>
+  <text x="860" y="268" fill="#003049" font-size="30" font-weight="bold">Critics score a touch higher</text>
+  <text x="860" y="298" fill="#6B7280" font-size="20">Average critic vs user score by year, 2001&#8211;2021 &#8212; lines stay close.</text>
 
   <!-- line plot: x 900..1520 (2001..2021), y 340..520 (score 66..80) -->
   <!-- year->x: x = 900 + (year-2001)*31 ; score->y: y = 520 - (score-66)*12.857 -->
@@ -74,8 +74,6 @@
   <!-- CRITIC (teal) -->
   <polyline fill="none" stroke="#0A9396" stroke-width="4" stroke-linejoin="round" points="900,413 931,413 962,450 993,391 1024,420 1055,487 1086,492 1117,468 1148,453 1179,427 1210,406 1241,420 1272,432 1303,430 1334,461 1365,443 1396,427 1427,414 1458,390 1489,377 1520,365"/>
 
-  <circle cx="1210" cy="434" r="5" fill="#9B2226"/>
-  <text x="1210" y="556" fill="#9B2226" font-size="18" font-weight="bold" text-anchor="middle">cross around 2010&#8211;11</text>
   <text x="900" y="540" fill="#6B7280" font-size="16" text-anchor="start">2001</text>
   <text x="1520" y="540" fill="#6B7280" font-size="16" text-anchor="end">2021</text>
 
