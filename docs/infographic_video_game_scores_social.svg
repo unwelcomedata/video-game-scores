@@ -44,17 +44,17 @@
   <rect x="497" y="515.7" width="55" height="104.3" fill="#0A9396"/><!--60s 1168-->
   <rect x="564" y="430.0" width="55" height="190.0" fill="#005F73"/><!--70s 2128-->
   <rect x="631" y="464.6" width="55" height="155.4" fill="#0A9396"/><!--80s 1740-->
-  <rect x="698" y="598.1" width="55" height="21.9" fill="#E9D8A6"/><!--90s 245-->
+  <rect x="698" y="598.0" width="55" height="22.0" fill="#E9D8A6"/><!--90+ 246 (incl. one perfect 100)-->
   <line x1="95" y1="620" x2="760" y2="620" stroke="#6B7280" stroke-width="2"/>
 
   <text x="591" y="420" fill="#003049" font-size="18" font-weight="bold" text-anchor="middle">2,128</text>
   <text x="591" y="642" fill="#003049" font-size="16" text-anchor="middle">70s</text>
-  <text x="725" y="588" fill="#CBB477" font-size="16" font-weight="bold" text-anchor="middle">245</text>
+  <text x="725" y="588" fill="#CBB477" font-size="16" font-weight="bold" text-anchor="middle">246</text>
   <text x="725" y="642" fill="#6B7280" font-size="16" text-anchor="middle">90s</text>
   <text x="122" y="642" fill="#6B7280" font-size="16" text-anchor="middle">0s</text>
 
   <text x="80" y="700" fill="#CBB477" font-size="24" font-weight="bold">Only 4.1% of games ever break 90.</text>
-  <text x="80" y="730" fill="#6B7280" font-size="19">245 of 6,005 &#8212; the gold tier is tiny; the crowd lives in the 60s&#8211;80s.</text>
+  <text x="80" y="730" fill="#6B7280" font-size="19">246 of 6,005 &#8212; the gold tier is tiny; the crowd lives in the 60s&#8211;80s.</text>
 
   <!-- ============================================================= -->
   <!-- RIGHT COLUMN — CROSSOVER + AGREEMENT                          -->

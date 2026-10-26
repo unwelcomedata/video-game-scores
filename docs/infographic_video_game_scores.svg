@@ -45,7 +45,7 @@
   <!-- 60s   1168 -> 164.7--><rect x="720" y="735.3" width="90" height="164.7" fill="#0A9396"/>
   <!-- 70s   2128 -> 300.0--><rect x="820" y="600.0" width="90" height="300.0" fill="#005F73"/>
   <!-- 80s   1740 -> 245.3--><rect x="920" y="654.7" width="90" height="245.3" fill="#0A9396"/>
-  <!-- 90s   245  -> 34.5 --><rect x="1020" y="865.5" width="90" height="34.5" fill="#E9D8A6"/>
+  <!-- 90+  246  -> 34.7 (includes the one perfect 100 -> "break 90" = >=90) --><rect x="1020" y="865.3" width="90" height="34.7" fill="#E9D8A6"/>
 
   <!-- baseline -->
   <line x1="120" y1="900" x2="1120" y2="900" stroke="#6B7280" stroke-width="2"/>
@@ -65,11 +65,11 @@
   <!-- value labels on the two tallest + the 90s -->
   <text x="865" y="588" fill="#003049" font-size="22" font-weight="bold" text-anchor="middle">2,128</text>
   <text x="965" y="642" fill="#003049" font-size="20" text-anchor="middle">1,740</text>
-  <text x="1065" y="852" fill="#CBB477" font-size="20" font-weight="bold" text-anchor="middle">245</text>
+  <text x="1065" y="852" fill="#CBB477" font-size="20" font-weight="bold" text-anchor="middle">246</text>
 
   <!-- the 90-club punch -->
   <text x="80" y="990" fill="#CBB477" font-size="30" font-weight="bold">Only 4.1% of games ever break 90.</text>
-  <text x="80" y="1024" fill="#6B7280" font-size="23">245 of 6,005 &#8212; the gold tier is tiny; the crowd lives in the 60s&#8211;80s.</text>
+  <text x="80" y="1024" fill="#6B7280" font-size="23">246 of 6,005 &#8212; the gold tier is tiny; the crowd lives in the 60s&#8211;80s.</text>
 
   <!-- divider -->
   <line x1="80" y1="1082" x2="1120" y2="1082" stroke="#E9D8A6" stroke-width="3"/>
