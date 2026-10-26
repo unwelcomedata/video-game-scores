@@ -77,8 +77,8 @@
   <!-- ============================================================= -->
   <!-- SECTION 2 — CRITICS VS PLAYERS FLIPPED                        -->
   <!-- ============================================================= -->
-  <text x="80" y="1172" fill="#003049" font-size="34" font-weight="bold">Critics consistently score higher</text>
-  <text x="80" y="1206" fill="#6B7280" font-size="24">Average critic vs user score by release year, 2001&#8211;2021 &#8212; critics on top in all but the earliest years.</text>
+  <text x="80" y="1172" fill="#003049" font-size="34" font-weight="bold">Critics pulled ahead after 2010</text>
+  <text x="80" y="1206" fill="#6B7280" font-size="24">Average critic vs user score by release year, 2001&#8211;2021 &#8212; users led the 2000s, critics since.</text>
 
   <!-- line-chart plot area: x 160..1120 (2001..2021), y 1280..1560 (score 66..80) -->
   <!-- score->y:  y = 1560 - (score-66)/(80-66)*280  => y = 1560 - (score-66)*20 -->
