@@ -17,13 +17,15 @@ over 20 years, and where players and critics disagree the most.
   are just as uncommon.
 - **Users and critics broadly agree, but not perfectly** (correlation r = 0.60).
   Where they diverge, it's usually critics scoring a game well above the players.
-- **The two audiences swapped places over time.** In the early 2000s users rated
-  games *higher* than critics; since roughly 2011 critics have drifted up while
-  users held flat — so critics now sit above users.
+- **Critics and users changed places over time.** Through the 2000s users rated
+  games *higher* than critics on average; since about 2010 critics have drifted up
+  while users held flat — so critic averages now sit above user averages.
 
 ---
 
 _Click any chart to open it at full resolution._
+
+[![The shape of game review scores — infographic](docs/infographic_video_game_scores.png)](docs/infographic_video_game_scores.png)
 
 ## 1. Critic review scores
 
