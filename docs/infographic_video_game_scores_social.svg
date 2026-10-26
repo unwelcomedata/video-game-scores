@@ -59,8 +59,8 @@
   <!-- ============================================================= -->
   <!-- RIGHT COLUMN — CROSSOVER + AGREEMENT                          -->
   <!-- ============================================================= -->
-  <text x="860" y="268" fill="#003049" font-size="30" font-weight="bold">Critics pulled ahead after 2010</text>
-  <text x="860" y="298" fill="#6B7280" font-size="20">Avg critic vs user score by year &#8212; users led the 2000s, critics since.</text>
+  <text x="860" y="268" fill="#003049" font-size="30" font-weight="bold">Critics score higher since 2010</text>
+  <text x="860" y="298" fill="#6B7280" font-size="20">Avg critic vs user score by year &#8212; users were higher through the 2000s.</text>
 
   <!-- line plot: x 900..1520 (2001..2021), y 340..520 (score 66..80) -->
   <!-- year->x: x = 900 + (year-2001)*31 ; score->y: y = 520 - (score-66)*12.857 -->
